@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::Layout(~{::section})">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<section>
+    <div class="card shadow border-0 mt-4">
+        <div class="card-header bg-secondary bg-gradient ml-0 py-3">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <h2 class="text-white py-2">Update Author</h2>
+                </div>
+            </div>
+        </div>
+        <div class="card-body p-4">
+            <form th:action="@{'/author/edit/' + ${author.id}}" th:object="${author}" method="POST" class="row">
+                <input th:field="*{id}" hidden />
+                <div class="border p-3">
+                    <div class="form-floating py-2 col-12">
+                        <input type="text" th:field="*{name}"  class="form-control border-0 shadow" />
+                        <label class="ms-2">Author Name</label>
+                        <div th:if="${#fields.hasErrors('name')}" class="text-danger">
+                            <span th:errors="*{name}"></span>
+                        </div>
+                    </div>
+                    <div class="row pt-2">
+                        <div class="col-6 col-md-3">
+                            <button type="submit" class="btn btn-primary form-control">Update</button>
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <a th:href="@{/author}" class="btn btn-outline-primary border form-control">
+                                Back to List
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+</body>
+</html>

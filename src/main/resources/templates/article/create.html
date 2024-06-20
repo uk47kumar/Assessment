@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::Layout(~{::section})">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<section>
+    <div class="card shadow border-0 mt-4">
+        <div class="card-header bg-secondary bg-gradient ml-0 py-3">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <h2 class="text-white py-2">Create Article</h2>
+                </div>
+            </div>
+        </div>
+        <div class="card-body p-4">
+            <form th:action="@{/author/article/create}" th:object="${article}" method="POST" class="row">
+                <div class="border p-3">
+                    <div class="form-floating py-2 col-12">
+                        <input type="text" th:field="*{title}"  class="form-control border-0 shadow" />
+                        <label class="ms-2">Title</label>
+                        <div th:if="${#fields.hasErrors('title')}" class="text-danger">
+                            <span th:errors="*{title}"></span>
+                        </div>
+                    </div>
+                    <div class="form-floating py-2 col-12">
+                        <input type="date" th:field="*{publishDate}"  class="form-control border-0 shadow" />
+                        <label class="ms-2">Publish Date</label>
+                    </div>
+                    <div class="form-floating py-2 col-12">
+                        <select th:field="*{status}" class="form-control border-0 shadow">
+                            <option value="Draft">Draft</option>
+                            <option value="Published">Published</option>
+                            <option value="Archived">Archived</option>
+                        </select>
+                        <label class="ms-2">Status</label>
+                    </div>
+                    <div class="form-floating py-2 col-12">
+                        <textarea th:field="*{description}" class="form-control border-0 shadow"></textarea>
+                        <label class="ms-2">Description</label>
+                        <div th:if="${#fields.hasErrors('description')}" class="text-danger">
+                            <span th:errors="*{description}"></span>
+                        </div>
+                    </div>
+                    <div class="form-floating py-2 col-12">
+                        <select th:field="*{author.id}" class="form-control border-0 shadow">
+                            <option th:each="author : ${authorList}" th:value="${author.id}" th:text="${author.name}">Author</option>
+                        </select>
+                        <label class="ms-2">Author</label>
+                        <div th:if="${#fields.hasErrors('author')}" class="text-danger">
+                            <span th:errors="*{author}"></span>
+                        </div>
+                    </div>
+                    <div class="form-floating py-2 col-12">
+                        <input type="text" th:field="*{banner}"  class="form-control border-0 shadow" />
+                        <label class="ms-2">Banner</label>
+                    </div>
+                    <div class="row pt-2">
+                        <div class="col-6 col-md-3">
+                            <button type="submit" class="btn btn-primary form-control">Create</button>
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <a th:href="@{/author/article}" class="btn btn-outline-primary border form-control">
+                                Back to List
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+</body>
+</html>
